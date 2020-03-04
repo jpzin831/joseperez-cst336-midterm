@@ -1,17 +1,19 @@
 let buildGallery = function(){
-	$("#images").empty();
-	var url = "https://dog.ceo/api/breeds/image/random/" + $("#number-images").val();
-	$.ajax({
-		url: url,
-		type: "GET",
-		dataType: "json",
-		success: function(data){
-			data.message.forEach(function(src){
-				$("#images").append("<div class=\"img-thumbnail flex-item\"><img src=\""+src+"\"></div>");
-			});
-		},
-		error: function(err){
-			console.log(err);
-		}
-	});
+	var keyData = "#isbn";
+$.ajax({
+  url: "https://openlibrary.org/api/books?bibkeys=ISBN:" + keyData + "&jscmd=details&callback=mycallback",
+  dataType: "jsonp",
+  success: function(data) {
+    var getData = data["ISBN:" + keyData];
+    var title = getData.details.title,
+      author = getData.details.authors[0].name;
+    $('.title').text(title);
+    $('.author').text(author);
+		$('.publisheryear').text(publisheryear);
+		$('.publisher').text(publisher);
+		$('.isbn').text(isbn)
+		$('.pages').text(pages)
+
+  }
+});
 }
